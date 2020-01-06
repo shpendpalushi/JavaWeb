@@ -1,10 +1,13 @@
 package com.shpend.app.security;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.springframework.security.core.GrantedAuthority;
 
@@ -30,7 +33,7 @@ public class Authority implements GrantedAuthority {
 		this.id = id;
 	}
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	public User getUser() {
 		return user;
 	}

@@ -21,9 +21,16 @@ public class UserService {
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);
 		Authority authority = new Authority();
-		authority.setAuthority("ROLE_USER");
+		authority.setAuthority(user.getAuthority());
 		authority.setUser(user);
 		user.getAuthorities().add(authority);
 		return userRepo.save(user);
 	}
+	
+	public User get(long id)
+	{
+		return userRepo.getOne(id);
+	}
+	
+	
 }
