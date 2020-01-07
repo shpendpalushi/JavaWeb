@@ -2,6 +2,10 @@ package com.shpend.app.service;
 
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +21,11 @@ public class TeacherService  {
 	@Autowired
 	UserRepository userRepo;
 	
+	@Autowired
+	UserService userService; 
+	
+
+	
 	public Teacher save(Teacher teacher, Long id)
 	{
 		User user;
@@ -24,11 +33,11 @@ public class TeacherService  {
 		if(ifUser.isPresent()) {
 			user= ifUser.get();
 			user.setTeacher(teacher);
-			user.setCompletedInfo(1);
 			teacher.setUser(user);
+			userService.updateCompletedInfo(user);
 			return teacherRepo.save(teacher);
 		}else {
-			System.out.println("Couldn't find any user here...");
+			System.out.println("Couldn't find any user here...++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++==");
 			return null;
 		}
 			

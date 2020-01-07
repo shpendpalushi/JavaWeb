@@ -55,6 +55,11 @@ implements AuthenticationSuccessHandler {
       boolean isAdmin = false;
       boolean isTeacher = false;
       User user = (User) authentication.getPrincipal();
+      System.out.println(user.getUsername()+ "+++++++++++++++++++++++++++++++++++++++++++++++++++");
+      System.out.println(user.getName()+ "+++++++++++++++++++++++++++++++++++++++++++++++++++");
+      System.out.println(user.getYear()+ "+++++++++++++++++++++++++++++++++++++++++++++++++++");
+      System.out.println(user.getId()+ "+++++++++++++++++++++++++++++++++++++++++++++++++++");
+      System.out.println(user.getCompletedInfo()+ "+++++++++++++++++++++++++++++++++++++++++++++++++++");
       Collection<? extends GrantedAuthority> authorities
        = authentication.getAuthorities();
       for (GrantedAuthority grantedAuthority : authorities) {
@@ -71,7 +76,7 @@ implements AuthenticationSuccessHandler {
       }
 
       if (isUser) {
-    	  if(user.getCompletedInfo()==null) {
+    	  if(user.getTeacher().getUser().getCompletedInfo()==null) {
     		  return "/register_student/" + user.getId();
     	  }else {
     		  return "/student/" + user.getId();
@@ -80,13 +85,12 @@ implements AuthenticationSuccessHandler {
     	  
           return "/admin_dashboard/"+ user.getId();
       } else if(isTeacher) {
-    	  System.out.println(user.getName()+"****************************************");
-    	  System.out.println(user.getCompletedInfo()+"****************************************");
-    	  if(user.getCompletedInfo()==null) {
-    		  return "/register_teacher/" + user.getId();
-    	  }else {
-    		  return "/teacher/" + user.getId();
-    	  }
+    	  try {
+    		  Integer a = user.getTeacher().getUser().getCompletedInfo(); 
+    			  return "/teacher/" + user.getId();
+    	  }catch(NullPointerException e) {
+        		  return "/register_teacher/" + user.getId();
+    	  }  
       } else{
           throw new IllegalStateException();
       }
