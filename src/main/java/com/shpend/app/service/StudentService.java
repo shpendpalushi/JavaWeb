@@ -1,5 +1,7 @@
 package com.shpend.app.service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +27,12 @@ public class StudentService  {
 		Optional<User> ifUser = userRepo.findById(id);
 		if(ifUser.isPresent()) {
 			user= ifUser.get();
-			user.setStudent(student);
+			user.
+			setStudent(student);
 			user.setCompletedInfo(1);
 			student.setUser(user);
+			Date date = new Date();
+			student.setCreatedAt(new Timestamp(date.getTime()));
 			return studentRepo.save(student);
 		}else {
 			System.out.println("Couldn't find any user here...");

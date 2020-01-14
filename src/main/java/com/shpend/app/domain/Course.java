@@ -1,6 +1,7 @@
 package com.shpend.app.domain;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -9,49 +10,40 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 
-
 @Entity
-@Table(name="student")
-public class Student extends Role {
+@Table(name="course")
+public class Course  {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	private String dega;
-	private short viti;
-	private String niveli;
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="user_id", referencedColumnName="id")
-	private User user;
-	@Temporal(TemporalType.TIMESTAMP)
+	private String name;
+	private String department;
+	@Temporal(TemporalType.DATE)
 	private Date createdAt;
+	@ManyToMany(mappedBy = "courses")
+	private Set<Teacher> teachers;
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="course")
+	private Set<Thiesis> thiesis = new HashSet<>();
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="course")
 	private Set<StudentCourseTaken> takenCourses;
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Student()
-	{
+	public Course() {
 		
 	}
 	
-	public Student(Long id)
+	
+	public Course(Long id,String name,String departament)
 	{
+		this.name = name;
 		this.id = id;
+		this.department = departament;
 	}
 	public Long getId() {
 		return id;
@@ -60,20 +52,12 @@ public class Student extends Role {
 		this.id = id;
 	}
 
-	public short getViti() {
-		return viti;
+	public String getDepartament() {
+		return department;
 	}
 
-	public void setViti(short viti) {
-		this.viti = viti;
-	}
-
-	public String getDega() {
-		return dega;
-	}
-
-	public void setDega(String dega) {
-		this.dega = dega;
+	public void setDepartament(String department) {
+		this.department = department;
 	}
 
 	public Date getCreatedAt() {
@@ -84,19 +68,41 @@ public class Student extends Role {
 		this.createdAt = createdAt;
 	}
 
-	public String getNiveli() {
-		return niveli;
+	public Set<Teacher> getTeachers() {
+		return teachers;
 	}
 
-	public void setNiveli(String niveli) {
-		this.niveli = niveli;
+	public void setTeachers(Set<Teacher> teachers) {
+		this.teachers = teachers;
 	}
+
+
+	public Set<Thiesis> getThiesis() {
+		return thiesis;
+	}
+
+
+	public void setThiesis(Set<Thiesis> thiesis) {
+		this.thiesis = thiesis;
+	}
+
 
 	public Set<StudentCourseTaken> getTakenCourses() {
 		return takenCourses;
 	}
 
+
 	public void setTakenCourses(Set<StudentCourseTaken> takenCourses) {
 		this.takenCourses = takenCourses;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

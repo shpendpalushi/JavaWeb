@@ -2,6 +2,7 @@ package com.shpend.app.security;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -17,9 +19,14 @@ import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.shpend.app.domain.User;
+import com.shpend.app.repository.UserRepository;
+
 
 public class UrlAuthenticationSuccessHandler
 implements AuthenticationSuccessHandler {
+	
+	@Autowired
+	private UserRepository userRepo;
 
   protected Log logger = LogFactory.getLog(this.getClass());
 
@@ -54,12 +61,7 @@ implements AuthenticationSuccessHandler {
       boolean isUser = false;
       boolean isAdmin = false;
       boolean isTeacher = false;
-      User user = (User) authentication.getPrincipal();
-      System.out.println(user.getUsername()+ "+++++++++++++++++++++++++++++++++++++++++++++++++++");
-      System.out.println(user.getName()+ "+++++++++++++++++++++++++++++++++++++++++++++++++++");
-      System.out.println(user.getYear()+ "+++++++++++++++++++++++++++++++++++++++++++++++++++");
-      System.out.println(user.getId()+ "+++++++++++++++++++++++++++++++++++++++++++++++++++");
-      System.out.println(user.getCompletedInfo()+ "+++++++++++++++++++++++++++++++++++++++++++++++++++");
+     
       Collection<? extends GrantedAuthority> authorities
        = authentication.getAuthorities();
       for (GrantedAuthority grantedAuthority : authorities) {
@@ -74,23 +76,39 @@ implements AuthenticationSuccessHandler {
               break;
           }
       }
-
+      User u = (User) authentication.getPrincipal();
+      Optional<User> ifUser = userRepo.findById(u.getId());
+      User user = ifUser.get();
+      System.out.println(user.getUsername());
+      System.out.println(user.getName());
+      System.out.println(user.getId());
+      System.out.println(user.getCompletedInfo());
       if (isUser) {
-    	  if(user.getTeacher().getUser().getCompletedInfo()==null) {
+    	  
+    	  try {
+    		  if(user.getCompletedInfo()==1) 
+    			  return "/dashboard/" + user.getId();
     		  return "/register_student/" + user.getId();
-    	  }else {
-    		  return "/student/" + user.getId();
+    	  }catch(NullPointerException e) {
+        		  return "/register_student/" + user.getId();
     	  }
       } else if (isAdmin) {
     	  
-          return "/admin_dashboard/"+ user.getId();
+    	  try {
+    		  if(user.getCompletedInfo()==1)
+    			  return "/admin/" + user.getId();
+    		  return "/register_admin/" + user.getId();
+    	  }catch(NullPointerException e) {
+        		  return "/register_admin/" + user.getId();
+    	  }
       } else if(isTeacher) {
     	  try {
-    		  Integer a = user.getTeacher().getUser().getCompletedInfo(); 
+    		  if(user.getCompletedInfo()==1)
     			  return "/teacher/" + user.getId();
+    			return "/register_teacher/" + user.getId();
     	  }catch(NullPointerException e) {
         		  return "/register_teacher/" + user.getId();
-    	  }  
+    	  }
       } else{
           throw new IllegalStateException();
       }

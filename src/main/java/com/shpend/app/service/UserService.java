@@ -1,10 +1,7 @@
 package com.shpend.app.service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-
+import java.sql.Timestamp;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,8 +13,7 @@ import com.shpend.app.security.Authority;
 @Service
 public class UserService {
 	
-	EntityManagerFactory entityManagerFactory =
-	          Persistence.createEntityManagerFactory("example-unit");
+	
 	
 	
 	@Autowired
@@ -31,6 +27,8 @@ public class UserService {
 		Authority authority = new Authority();
 		authority.setAuthority(user.getAuthority());
 		authority.setUser(user);
+		Date date = new Date();
+		user.setCreatedAt(new Timestamp(date.getTime()));
 		user.getAuthorities().add(authority);
 		return userRepo.save(user);
 	}
@@ -39,11 +37,5 @@ public class UserService {
 	{
 		return userRepo.getOne(id);
 	}
-	
-	public void updateCompletedInfo(User user)
-	{
-		EntityManager em = entityManagerFactory.createEntityManager();
-		Query query = em.createQuery("Update users u SET u.completed_info = 1 WHERE u.id = " + user.getId());
-	}
-	
+
 }
