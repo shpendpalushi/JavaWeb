@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="htttp://thymeleaf.org">
+<head>
+	<link rel="stylesheet" href="style.css">
+<title>Register Teacher</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body class="showcase">
+	<div class="container">
+		<div class="" style="margin-top: 2em">
+			<div class="card card-header" style="color: #FAFAFA">Let's complete your information</div>
+				<div class="body">
+					<form action="" method="post" class="">
+					
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+						<div class="form-group row">
+							<label for="name" class="col-12 col-sm-4 col-form-label" style="color:white"><strong>Roli:</strong></label>
+							<div class=" col-12 col-sm-8"> 	
+								<input type="text" class="form-control" placeholder="Fusni rolin tuaj ketu..." th:field="${admin.role}" required/><br/>
+							</div>						
+						</div>
+						<div class="col text-center">
+							<button type="submit" class="btn btn-success ">Complete Account details</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+</body>
+</html>

@@ -13,51 +13,51 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.shpend.app.domain.Role;
+import com.shpend.app.domain.Student;
 import com.shpend.app.domain.Teacher;
 import com.shpend.app.domain.User;
-import com.shpend.app.repository.TeacherRepository;
 import com.shpend.app.repository.UserRepository;
+import com.shpend.app.service.StudentService;
 import com.shpend.app.service.TeacherService;
 import com.shpend.app.service.UserService;
 
 @Controller
-public class RegisterTeacherController implements RegisterRole{
+public class RegisterStudentController {
 	
 	@Autowired
 	private UserRepository userRepo;
 	@Autowired
 	UserService userService;
 	@Autowired
-	TeacherService teacherService;
+	StudentService studentService;
 	
 	Long myId = null;
-	
-	@Override
-	@GetMapping("/register_teacher/{userId}")
+	@GetMapping("/register_student/{userId}")
 	  public String dashboard(@PathVariable long userId,ModelMap map, HttpServletResponse response) throws IOException {
 		myId = userId;
 		Optional<User> userOptional = 	userRepo.findById(userId);
 		 if(userOptional.isPresent())
 		 {
-			 map.put("teacher", new Teacher());
-			return "register_teacher"; 
+			 map.put("student", new Student());
+			return "register_student"; 
 		 }else {
 		      response.sendError(HttpStatus.NOT_FOUND.value(), "Product with id " + userId + " was not found");
 		      return "login";
 		    }
 		 
 	  }
-	@PostMapping("/register_teacher/{userId}")
-	  public String register (Teacher teacher) {
+	@PostMapping("/register_student/{userId}")
+	  public String register(Student student) {
 		try {
-			teacherService.save(teacher, myId);
+			studentService.save(student, myId);
 		}catch(NullPointerException e) {
 			System.out.println("Null pointer here");
 			e.printStackTrace();
 		}
-	    	    	
+	    
+	    
+	    
+	    	
 	    return "redirect:/login";
 	  }
-
 }

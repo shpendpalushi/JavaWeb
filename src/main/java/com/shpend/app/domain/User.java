@@ -1,5 +1,7 @@
 package com.shpend.app.domain;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -11,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.OneToOne;
 
 import com.shpend.app.security.Authority;
@@ -29,14 +34,18 @@ public class User {
 	private String name;
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER , mappedBy="user")
 	private Set<Authority> authorities = new HashSet<>();
-	private Long year;
 //	private Authority authority;
+	@Transient
 	private String authority;
 	private Integer completedInfo;
 	@OneToOne(mappedBy="user")
 	private Teacher teacher;
 	@OneToOne(mappedBy="user")
 	private Student student;
+	@OneToOne(mappedBy="user")
+	private Admin admin;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdAt;
 	
 	
 	
@@ -72,16 +81,6 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-	
-	public Long getYear() {
-		return year;
-	}
-	public void setYear(Long year) {
-		this.year = year;
-	}
-		
-	
 	public String getPassword() {
 		return password;
 	}
@@ -133,6 +132,22 @@ public class User {
 
 	public void setStudent(Student student) {
 		this.student = student;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Admin getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
 	}
 
 }
