@@ -1,5 +1,5 @@
 window.addEventListener("load", start);
-var i=4;
+var i=1;
 var question = '<div class="form-group row">'+
                     '<label for="name" class="col-12 col-sm-4 col-form-label">Question:</label>'+
                     '<div class=" col-12 col-sm-8">'+
