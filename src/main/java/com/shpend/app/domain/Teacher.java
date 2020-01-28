@@ -32,7 +32,7 @@ public class Teacher extends Role {
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="user_id", referencedColumnName="id")
 	private User user;
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
 
 	
@@ -92,4 +92,5 @@ public class Teacher extends Role {
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
 	}
+
 }

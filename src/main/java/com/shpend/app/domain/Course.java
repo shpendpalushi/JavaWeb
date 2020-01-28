@@ -26,10 +26,10 @@ public class Course  {
 	private Long id;
 	private String name;
 	private String department;
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
 	@ManyToMany(mappedBy = "courses")
-	private Set<Teacher> teachers;
+	private Set<Teacher> teachers = new HashSet<>();
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="course")
 	private Set<Thiesis> thiesis = new HashSet<>();
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="course")
@@ -105,4 +105,5 @@ public class Course  {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 }

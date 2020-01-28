@@ -25,7 +25,8 @@ public class AddThiesisController {
 	
 	  @GetMapping("/add_thiesis")
 	  public String register (ModelMap model) {
-		List<String> courses = courseNames(courseRepo.findAll());
+		List<Course> courses = courseRepo.findAll();
+		System.out.println(courses.toString());
 		model.put("courses", courses);
 	    model.put("thiesis", new Thiesis());
 	    return "add_thiesis";
@@ -38,12 +39,12 @@ public class AddThiesisController {
 	    return "redirect:/login";
 	  }
 	  
-	  private List<String> courseNames(List<Course> courses)
-	  {
-		  List<String> courseNames = new ArrayList<>();
-		  for(Course c : courses)
-			  courseNames.add(c.getName());
-		  return courseNames;
-	  }
+//	  private List<String> courseNames(List<Course> courses)
+//	  {
+//		  List<String> courseNames = new ArrayList<>();
+//		  for(Course c : courses)
+//			  courseNames.add(c.getName());
+//		  return courseNames;
+//	  }
 
 }

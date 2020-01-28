@@ -1,11 +1,114 @@
+
 <!DOCTYPE html>
+<html xmlns="htttp://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="/css/teacher_dashboard.css" rel="stylesheet" type="text/css" media="all" th:href="@{/css/teacher_dashboard.css}"/>
+  <title>Document</title>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Dashbordi i mesuesit <span></span></h1>
+  <section class="psummary">
+    <div class="psummary-left">
+      <p><span class="entypo-attention"></span>Status</p>
+      <p>Mesuses</p>
+    </div>
+  </section>
+  <section class="pcontent-l">
+    <div class="info">
+<div class="tabs" data-tabgroup="tab-group">
+        <div class="active"><a href="#information">Kreu</a></div>
+        <form action="" method="post">
+          <div><a th:href="@{'/teacher/'+${id}+'/add_course'}">Shto lende</a></div>
+        </form>
+        <div><a href="#deletecourse">Hiq lende</a></div>
+        <div><a href="#ttezat">Shto teze</a></div>
+        <div><a href="#deletethiesis">Hiq teze</a></div>
+      </div>
+      <section id="tab-group" class="tabgroup">
+  <div id="information">
+    <h2>Heading 1</h2>
+    <p>
+      
+    </p>
+  </div>
+  <div id="addcourse">
+    <h2>Heading 2</h2>
+    <p></p>
+  </div>
+  <div id="deletecourse">
+    <h2>Heading 3</h2>
+    <p></p>
+  </div>
+  <div id="addthiesis">
+    <h2>Heading 4</h2>
+    <p></p>
+  </div>
+  <div id="deletethiesis">
+    <h2>Heading 5</h2>
+    <p></p>
+  </div>
+</section>
+    </div>
+    <div id="thiesis"class="conversation">
+      <h3>Tezat</h3>
+    </div>
+  </section>
+  <aside class="pcontent-r">
+    <div class="history">
+      <h3>Lendet</h3>
+    </div>
+    <div class="team">
+      <h3>Departamenti</h3>
+    </div>
+  </aside>
+</div> <!-- END Wrapper -->
+  <footer>
+   
+</footer>
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
 <html xmlns:th="htttp://thymeleaf.org">
 <head>
-  <!-- Required meta tags -->
+   Required meta tags 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
+
   <title>Teacher dashboard</title>
   <link href="../static/css/teacher_style.css" rel="stylesheet" type="text/css" media="all" th:href="@{/css/teacher_style.css}"/> 
   <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
@@ -32,4 +135,4 @@
   </div>
 </body>
 
-</html>
+</html> -->

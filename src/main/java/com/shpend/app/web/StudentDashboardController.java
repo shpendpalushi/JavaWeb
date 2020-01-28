@@ -26,6 +26,7 @@ public class StudentDashboardController implements RegisterRole {
 		 Optional<User> userOptional = 	userRepo.findById(userId);
 		 if(userOptional.isPresent())
 		 {
+			 
 			 User user = userOptional.get();
 			 map.put("user", user);
 			 map.put("student", user.getStudent());
