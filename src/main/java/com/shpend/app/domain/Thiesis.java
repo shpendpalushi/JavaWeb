@@ -31,6 +31,8 @@ public class Thiesis {
 private Integer noOfQuestions;
 	@Transient
 	private String courseName;
+	@Transient
+	private String tmpCourse;
 	
 	public Thiesis() {
 		
@@ -101,6 +103,18 @@ private Integer noOfQuestions;
 
 	public void setNoOfQuestions(Integer noOfQuestions) {
 		this.noOfQuestions = noOfQuestions;
+	}
+
+
+
+	public String getTmpCourse() {
+		return tmpCourse;
+	}
+
+
+
+	public void setTmpCourse(String tmpCourse) {
+		this.tmpCourse = tmpCourse;
 	}
 	
 

@@ -11,6 +11,7 @@ import javax.persistence.Persistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.shpend.app.domain.Course;
 import com.shpend.app.domain.Teacher;
 import com.shpend.app.domain.User;
 import com.shpend.app.repository.TeacherRepository;
@@ -41,6 +42,27 @@ public class TeacherService  {
 				teacher.setUser(user);
 				Date date = new Date();
 				teacher.setCreatedAt(new Timestamp(date.getTime()));
+				return teacherRepo.save(teacher);
+		 }else {
+			 System.out.println("NULL not registered");
+			 return null;
+		 }
+		
+	}
+	
+	
+	public Teacher saveAndUpdate(Teacher teacher, Long id,Course course)
+	{
+		Optional<User> userOptional = 	userRepo.findById(id);
+		 if(userOptional.isPresent())
+		 {
+			 	User user = userOptional.get();
+			 	user.setCompletedInfo(1);
+			 	teacher.setDepartament(teacher.getDepartament());
+				teacher.setUser(user);
+				Date date = new Date();
+				teacher.setCreatedAt(new Timestamp(date.getTime()));
+				teacher.getCourses().add(course);
 				return teacherRepo.save(teacher);
 		 }else {
 			 System.out.println("NULL not registered");

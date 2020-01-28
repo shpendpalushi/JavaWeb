@@ -2,43 +2,62 @@
 <html xmlns:th="htttp://thymeleaf.org">
 <head>
 
-<title>Add Thiesis</title>
+<title>Register User</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://kit.fontawesome.com/2f51b7b36e.js" crossorigin="anonymous"></script>
+<script src="../static/javascript/add_thiesis.js"></script>
 </head>
 <body>
 	<div class="container">
 		<div class="card" style="margin-top: 2em">
 			<div class="card-header">Please Login</div>
-				<div class="body">
+				<div class="body" >
 					<form action="" method="post">
 						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" required/>
-						<div class="col-12 col-sm-8">							
-								 <select class="form-control" id="authority_property" th:field=*{thiesis.courseName}>
-									<option th:each="i:${courses}" th:value="${i}" th:text="${i}"></option>	
-								 </select>						
+						<div id="question_body">
+							<div class="form-group row">
+								<label for="year" class="col-12 col-sm-4 col-form-label">Enter the course:</label>
+								<div class="col-12 col-sm-8">							
+									<select th:field="*{thiesis.tmpCourse}">
+									<option th:each="i : ${courses}" th:value="${i.id}" th:text="${i.name}">
+									</option>
+									</select>					
+								</div>
 							</div>
+							<div class="form-group row">
+								<label for="name" class="col-12 col-sm-4 col-form-label">Question:</label>
+								<div class=" col-12 col-sm-8"> 	
+									<input type="text" class="form-control" placeholder="Enter question here..."required/><br/>
+								</div>						
+							</div>
+							<div class="form-group row">
+								<label for="name" class="col-12 col-sm-4 col-form-label">Question:</label>
+								<div class=" col-12 col-sm-8"> 	
+									<input type="text" class="form-control" placeholder="Enter question here..."  required/><br/>
+								</div>						
+							</div>
+							<div class="form-group row">
+								<label for="name" class="col-12 col-sm-4 col-form-label">Question:</label>
+								<div class=" col-12 col-sm-8"> 	
+									<input type="text" class="form-control" placeholder="Enter question here..." required/><br/>
+								</div>						
+							</div>
+							<div class="form-group row">
+								<label for="name" class="col-12 col-sm-4 col-form-label">Question:</label>
+								<div class=" col-12 col-sm-8"> 	
+									<input type="text" class="form-control" placeholder="Enter question here..."  required/><br/>
+								</div>						
+							</div>
+					</div>
 						<div class="form-group row">
-							<label for="name" class="col-12 col-sm-4 col-form-label">Pyetje:</label>
 							<div class=" col-12 col-sm-8"> 	
-								<input type="text" class="form-control" placeholder="Shkruaje pyetjen ketu..." th:field="${user.name}" required/><br/>
+								<i class="fas fa-plus" id="plus"></i>
+								<i class="fas fa-minus" id="minus"></i>
 							</div>						
 						</div>
-						<div class="form-group row">
-							<label for="username" class="col-12 col-sm-4 col-form-label">Pyetje:</label>
-							<div class="col-12 col-sm-8 col-form-label">
-								 <input type="text" class="form-control" placeholder="Shkruaje pyetjen ketu..." th:field="${user.username}" required/><br/>						
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="year" class="col-12 col-sm-4 col-form-label">Perzgjidhni lenden:</label>
-						</div>
-						<div class="row col-12 pb-2">'+
-//                         <div class="float-right"><i id="plus" class="fas fa-plus-circle fa-lg"></i></div>'+
-//                         <div class="float-right"><i id="minus" class="fas fa-minus-circle fa-lg"></i></div>'+
-//                      </div>
 							<button type="submit" class="btn btn-primary ">Create account</button>
 					</form>
+
 				</div>
 			</div>
 		</div>
