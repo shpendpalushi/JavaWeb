@@ -30,9 +30,6 @@ public class CourseServiceTest {
 	
 	@Autowired
 	CourseService service;
-	
-	
-	
 
 	@Test
 	public void test() {
@@ -47,6 +44,7 @@ public class CourseServiceTest {
 		
 		Teacher teacher = new Teacher();
 		teacher.setId(id);
+		
 		teacher.setDepartament("DII");
 		User user = new User();
 		user.setId(id);

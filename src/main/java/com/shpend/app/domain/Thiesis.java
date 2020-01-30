@@ -1,7 +1,9 @@
 package com.shpend.app.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,9 +14,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.IndexColumn;
 
 @Entity
 public class Thiesis {
@@ -22,25 +27,37 @@ public class Thiesis {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	@OrderColumn
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="thiesis")
-	private Set<Question> questions = new HashSet<>();
+	private Question[] questions = new Question[10];
 	@ManyToOne(cascade=CascadeType.ALL)
 	private Course course;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
-private Integer noOfQuestions;
 	@Transient
 	private String courseName;
 	@Transient
-	private String tmpCourse;
+	private Long tmpCourse;
 	
 	public Thiesis() {
 		
 	}
 
+	
+
+	public Thiesis(Long id, Question[] questions, Course course, Date createdAt, String courseName, Long tmpCourse) {
+		super();
+		this.id = id;
+		this.questions = questions;
+		this.course = course;
+		this.createdAt = createdAt;
+		this.courseName = courseName;
+		this.tmpCourse = tmpCourse;
+	}
 
 
-	public Thiesis(Long id, Set<Question> questions, Course course, Date createdAt) {
+
+	public Thiesis(Long id, Question[] questions, Course course, Date createdAt) {
 		super();
 		this.id = id;
 		this.questions = questions;
@@ -56,11 +73,11 @@ private Integer noOfQuestions;
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Set<Question> getQuestions() {
+	public Question[] getQuestions() {
 		return questions;
 	}
-	public void setQuestions(Set<Question> questions) {
-		this.questions = questions;
+	public void setQuestions(Question[] q) {
+		this.questions = q;
 	}
 	public Course getCourse() {
 		return course;
@@ -93,27 +110,13 @@ private Integer noOfQuestions;
 		this.courseName = courseName;
 	}
 
-
-
-	public Integer getNoOfQuestions() {
-		return noOfQuestions;
-	}
-
-
-
-	public void setNoOfQuestions(Integer noOfQuestions) {
-		this.noOfQuestions = noOfQuestions;
-	}
-
-
-
-	public String getTmpCourse() {
+	public Long getTmpCourse() {
 		return tmpCourse;
 	}
 
 
 
-	public void setTmpCourse(String tmpCourse) {
+	public void setTmpCourse(Long tmpCourse) {
 		this.tmpCourse = tmpCourse;
 	}
 	

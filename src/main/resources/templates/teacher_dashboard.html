@@ -24,8 +24,8 @@
         <form action="" method="post">
           <div><a th:href="@{'/teacher/'+${id}+'/add_course'}">Shto lende</a></div>
         </form>
-        <div><a href="#deletecourse">Hiq lende</a></div>
-        <div><a href="#ttezat">Shto teze</a></div>
+        <div><a th:href="@{'/teacher/'+${id}+'/add_course'}">Hiq lende</a></div>
+        <div><a th:href="@{'/teacher/'+${id}+'/add_thiesis'}">Shto teze</a></div>
         <div><a href="#deletethiesis">Hiq teze</a></div>
       </div>
       <section id="tab-group" class="tabgroup">

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.addEventListener("load", start);
+        function start (){
+            document.getElementById("sel").addEventListener("onchange", showed);
+             
+
+        }
+
+        function showed(){
+            var e = document.getElementById("sel");
+             var v = e.options[e.selectedIndex].value;
+            console.log(v);
+        }
+    </script>
+</head>
+<body>
+    <select name="" id="sel" onchange="showed()">
+        <option value="1">First</option>
+        <option value="2">Second</option>
+        <option value="3">Third</option>
+        <option value="4">Fourth</option>
+
+    </select>
+</body>
+</html>
+
+
+
+

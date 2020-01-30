@@ -1,7 +1,9 @@
 package com.shpend.app.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -26,12 +28,13 @@ public class Course  {
 	private Long id;
 	private String name;
 	private String department;
+	private Short year;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
 	@ManyToMany(mappedBy = "courses")
-	private Set<Teacher> teachers = new HashSet<>();
+	private List<Teacher> teachers = new ArrayList<>();
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="course")
-	private Set<Thiesis> thiesis = new HashSet<>();
+	private List<Thiesis> thiesis = new ArrayList<>();
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="course")
 	private Set<StudentCourseTaken> takenCourses;
 	public Course() {
@@ -68,22 +71,23 @@ public class Course  {
 		this.createdAt = createdAt;
 	}
 
-	public Set<Teacher> getTeachers() {
-		return teachers;
-	}
-
-	public void setTeachers(Set<Teacher> teachers) {
-		this.teachers = teachers;
+	public String getName() {
+		return name;
 	}
 
 
-	public Set<Thiesis> getThiesis() {
-		return thiesis;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 
-	public void setThiesis(Set<Thiesis> thiesis) {
-		this.thiesis = thiesis;
+	public Short getYear() {
+		return year;
+	}
+
+
+	public void setYear(Short year) {
+		this.year = year;
 	}
 
 
@@ -97,13 +101,23 @@ public class Course  {
 	}
 
 
-	public String getName() {
-		return name;
+	public List<Thiesis> getThiesis() {
+		return thiesis;
 	}
 
 
-	public void setName(String name) {
-		this.name = name;
+	public void setThiesis(List<Thiesis> thiesis) {
+		this.thiesis = thiesis;
+	}
+
+
+	public List<Teacher> getTeachers() {
+		return teachers;
+	}
+
+
+	public void setTeachers(List<Teacher> teachers) {
+		this.teachers = teachers;
 	}
 	
 }
