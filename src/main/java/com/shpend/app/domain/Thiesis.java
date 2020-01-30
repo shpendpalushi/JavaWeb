@@ -1,7 +1,9 @@
 package com.shpend.app.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -23,7 +25,7 @@ public class Thiesis {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="thiesis")
-	private Set<Question> questions = new HashSet<>();
+	private List<Question> questions = new ArrayList<>();
 	@ManyToOne(cascade=CascadeType.ALL)
 	private Course course;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -32,7 +34,7 @@ private Integer noOfQuestions;
 	@Transient
 	private String courseName;
 	@Transient
-	private String tmpCourse;
+	private Long tmpCourse;
 	
 	public Thiesis() {
 		
@@ -40,7 +42,7 @@ private Integer noOfQuestions;
 
 
 
-	public Thiesis(Long id, Set<Question> questions, Course course, Date createdAt) {
+	public Thiesis(Long id, List<Question> questions, Course course, Date createdAt) {
 		super();
 		this.id = id;
 		this.questions = questions;
@@ -56,10 +58,10 @@ private Integer noOfQuestions;
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Set<Question> getQuestions() {
+	public List<Question> getQuestions() {
 		return questions;
 	}
-	public void setQuestions(Set<Question> questions) {
+	public void setQuestions(List<Question> questions) {
 		this.questions = questions;
 	}
 	public Course getCourse() {
@@ -107,13 +109,13 @@ private Integer noOfQuestions;
 
 
 
-	public String getTmpCourse() {
+	public Long getTmpCourse() {
 		return tmpCourse;
 	}
 
 
 
-	public void setTmpCourse(String tmpCourse) {
+	public void setTmpCourse(Long tmpCourse) {
 		this.tmpCourse = tmpCourse;
 	}
 	
