@@ -24,13 +24,11 @@ public class Thiesis {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="thiesis")
-	private List<Question> questions = new ArrayList<>();
+	String questions;
 	@ManyToOne(cascade=CascadeType.ALL)
 	private Course course;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
-private Integer noOfQuestions;
 	@Transient
 	private String courseName;
 	@Transient
@@ -39,10 +37,22 @@ private Integer noOfQuestions;
 	public Thiesis() {
 		
 	}
+	
+	public Thiesis(Long id, String questions, Course course, Date createdAt,
+		String courseName, Long tmpCourse) {
+		super();
+		this.id = id;
+		this.questions = questions;
+		this.course = course;
+		this.createdAt = createdAt;
+		this.courseName = courseName;
+		this.tmpCourse = tmpCourse;
+	}
 
 
 
-	public Thiesis(Long id, List<Question> questions, Course course, Date createdAt) {
+
+	public Thiesis(Long id, String questions, Course course, Date createdAt) {
 		super();
 		this.id = id;
 		this.questions = questions;
@@ -58,10 +68,10 @@ private Integer noOfQuestions;
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public List<Question> getQuestions() {
+	public String getQuestions() {
 		return questions;
 	}
-	public void setQuestions(List<Question> questions) {
+	public void setQuestions(String questions) {
 		this.questions = questions;
 	}
 	public Course getCourse() {
@@ -97,15 +107,7 @@ private Integer noOfQuestions;
 
 
 
-	public Integer getNoOfQuestions() {
-		return noOfQuestions;
-	}
 
-
-
-	public void setNoOfQuestions(Integer noOfQuestions) {
-		this.noOfQuestions = noOfQuestions;
-	}
 
 
 

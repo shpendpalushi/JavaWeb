@@ -42,7 +42,9 @@ public class StudentService  {
 		
 	}
 	
-	
+	public Student save(Student student) {
+		return studentRepo.save(student);
+	}
 	
 	
 }

@@ -1,20 +1,14 @@
 package com.shpend.app.web;
 
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
+
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,14 +16,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.reactive.HandlerMapping;
 
 import com.shpend.app.service.CourseService;
 import com.shpend.app.service.ThiesisService;
-import com.shpend.app.service.UserService;
 import com.shpend.app.domain.Course;
-import com.shpend.app.domain.Question;
 import com.shpend.app.domain.Teacher;
 import com.shpend.app.domain.Thiesis;
 import com.shpend.app.domain.User;
@@ -64,18 +54,15 @@ public class TeacherDashboardController {
 			String uId = String.valueOf(userId);
 			List<Course> findAll = courseRepo.findAll();
 			model.put("courses", findAll);
-			ArrayList<Question> questions = new ArrayList<>();
 			model.put("id", uId);
 			model.put("thiesis", new Thiesis());
-			model.put("questions",questions);
 			return "add_thiesis"; 
 	  }
 	@PostMapping("/teacher/{userId}/add_thiesis")
-	public String addThiesis( @ModelAttribute(value="thiesis") Thiesis thiesis,@ModelAttribute(value="questions")ArrayList<Question> q, @PathVariable Long userId)
+	public String addThiesis( @ModelAttribute(value="thiesis") Thiesis thiesis, @PathVariable Long userId)
 	{
-		System.out.println(q.size());
-		Long tmpCourse = thiesis.getTmpCourse();
-		thiesisService.save(thiesis, tmpCourse,q);
+		System.out.println(thiesis.getQuestions());
+		thiesisService.save(thiesis);
 		System.out.println(thiesis.getId());
 		
 		return "redirect:/teacher/"+ userId;

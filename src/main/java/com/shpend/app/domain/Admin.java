@@ -28,6 +28,18 @@ public class Admin extends Role{
 		
 	}
 	
+	
+	
+public Admin(Long id, String position, User user, Date createdAt) {
+		super();
+		this.id = id;
+		this.position = position;
+		this.user = user;
+		this.createdAt = createdAt;
+	}
+
+
+
 public Admin(String position) {
 		this.position= position;
 	}

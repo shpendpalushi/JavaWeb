@@ -26,8 +26,10 @@ public class Student extends Role {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String dega;
-	private short viti;
+	private Short viti;
 	private String niveli;
+	private String hobbies;
+	private String about;
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="user_id", referencedColumnName="id")
 	private User user;
@@ -39,6 +41,24 @@ public class Student extends Role {
 	public User getUser() {
 		return user;
 	}
+	
+	
+	
+	public Student(Long id, String dega, Short viti, String niveli, String hobbies, String about, User user,
+			Date createdAt, Set<StudentCourseTaken> takenCourses) {
+		super();
+		this.id = id;
+		this.dega = dega;
+		this.viti = viti;
+		this.niveli = niveli;
+		this.hobbies = hobbies;
+		this.about = about;
+		this.user = user;
+		this.createdAt = createdAt;
+		this.takenCourses = takenCourses;
+	}
+
+
 
 	public void setUser(User user) {
 		this.user = user;
@@ -60,11 +80,11 @@ public class Student extends Role {
 		this.id = id;
 	}
 
-	public short getViti() {
+	public Short getViti() {
 		return viti;
 	}
 
-	public void setViti(short viti) {
+	public void setViti(Short viti) {
 		this.viti = viti;
 	}
 
@@ -98,5 +118,21 @@ public class Student extends Role {
 
 	public void setTakenCourses(Set<StudentCourseTaken> takenCourses) {
 		this.takenCourses = takenCourses;
+	}
+
+	public String getHobbies() {
+		return hobbies;
+	}
+
+	public void setHobbies(String hobbies) {
+		this.hobbies = hobbies;
+	}
+
+	public String getAbout() {
+		return about;
+	}
+
+	public void setAbout(String about) {
+		this.about = about;
 	}
 }

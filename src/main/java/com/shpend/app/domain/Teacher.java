@@ -43,6 +43,17 @@ public class Teacher extends Role {
 	  joinColumns = @JoinColumn(name = "teacher_id", referencedColumnName="id"), 
 	  inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName="id"))
 	private Set<Course> courses;
+	
+	
+
+	public Teacher(Long id, String departament, User user, Date createdAt, Set<Course> courses) {
+		super();
+		this.id = id;
+		this.departament = departament;
+		this.user = user;
+		this.createdAt = createdAt;
+		this.courses = courses;
+	}
 
 	public User getUser() {
 		return user;

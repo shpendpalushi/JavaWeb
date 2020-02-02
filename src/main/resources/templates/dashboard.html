@@ -13,10 +13,7 @@
 		                    <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
 		                </li>
 		                <li class="nav-item">
-		                    <a href="" data-target="#messages" data-toggle="tab" class="nav-link">Messages</a>
-		                </li>
-		                <li class="nav-item">
-		                    <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
+		                    <a th:href="@{'/dashboard/'+${id}+'/update_profile'}" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
 		                </li>
 		                <li class="nav-item">
 
@@ -28,29 +25,28 @@
 		            </ul>
 		            <div class="tab-content py-4">
 		                <div class="tab-pane active" id="profile">
-		                    <h5 class="mb-3">User Profile</h5>
+		                    <h5 class="mb-3" th:text="${user.name}"></h5>
 		                    <div class="row">
 		                        <div class="col-md-6">
 		                            <h6>About</h6>
-		                            <p> Web Designer, UI/UX Engineer </p>
+		                            <div th:unless="${student==null}">
+		                            	<p th:text="${student.about}"></p>
+		                            </div>
 		                            <h6>Hobbies</h6>
-		                            <p> Indie music, skiing and hiking. I love the great outdoors. </p>
+		                            <div th:unless="${student==null}">
+		                            	<p th:text="${student.hobbies}"></p>
+		                            </div>
+		                            
 		                        </div>
 		                        <div class="col-md-6">
-		                            <h6>Recent badges</h6>
-		                            <a href="#" class="badge badge-dark badge-pill">html5</a>
-		                            <a href="#" class="badge badge-dark badge-pill">react</a>
-		                            <a href="#" class="badge badge-dark badge-pill">codeply</a>
-		                            <a href="#" class="badge badge-dark badge-pill">angularjs</a>
-		                            <a href="#" class="badge badge-dark badge-pill">css3</a>
-		                            <a href="#" class="badge badge-dark badge-pill">jquery</a>
-		                            <a href="#" class="badge badge-dark badge-pill">bootstrap</a>
-		                            <a href="#" class="badge badge-dark badge-pill">responsive-design</a>
+									<h6>Subject for the year</h6>
+									<span th:each="course : ${courses}">
+										<a class="badge badge-dark badge-pill"  th:href="@{'/dashboard/'+${id}+'/thiesis/'+${course.id}}" th:text="${course.name}"></a>
+									</span>
 		                            <hr>
-		                            <span class="badge badge-primary"><i class="fa fa-user"></i> 900 Followers</span>
-		                            <span class="badge badge-success"><i class="fa fa-cog"></i> 43 Forks</span>
-		                            <span class="badge badge-danger"><i class="fa fa-eye"></i> 245 Views</span>
-		                        </div>
+		                            <span class="badge badge-primary"><i class="fa fa-user" th:text=${student.dega}></i></span>
+		                            <span class="badge badge-success"><i class="fa fa-cog" th:text=${student.viti}></i></span>
+		                            <span class="badge badge-danger"><i class="fa fa-eye" th:text=${student.niveli}></i></span>
 		                        <div class="col-md-12">
 		                            <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span> Recent Activity</h5>
 		                            <table class="table table-sm table-hover table-striped">

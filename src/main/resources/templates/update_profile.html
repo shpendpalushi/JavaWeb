@@ -30,37 +30,38 @@
 		}
 		
 	</style>
-<title>Register Teacher</title>
+<title>Complete info</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body class="showcase">
 	<div class="container">
 		<div class="" style="margin-top: 2em">
-			<div class="card card-header" style="color: #FAFAFA">Complete the information about the course</div>
+			<div class="card card-header" style="color: #FAFAFA">Update Student Info</div>
 				<div class="body">
 					<form action="" method="post" >
 					
 						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+						<input type="hidden" th:field=${student.id}/>
+						<input type="hidden" th:field=${student.dega}/>
+						<input type="hidden" th:field=${student.viti}/>
+						<input type="hidden" th:field=${student.niveli}/>
+						<input type="hidden" th:field=${student.createdAt}/>
+						<input type="hidden" th:field=${student.user}/>
+						
 						<div class="form-group row">
-							<label for="name" class="col-12 col-sm-4 col-form-label" style="color:white"><strong>Department:</strong></label>
+							<label for="name" class="col-12 col-sm-4 col-form-label" style="color:white"><strong>About:</strong></label>
 							<div class=" col-12 col-sm-8"> 	
-								<input type="text" class="form-control" placeholder="Enter the department here..." th:field="${course.departament}" required/><br/>
+								<input type="text" class="form-control row-3" placeholder="Enter a short description..." th:field="${student.about}" required/><br/>
 							</div>						
 						</div>
 						<div class="form-group row">
-							<label for="name" class="col-12 col-sm-4 col-form-label" style="color:white"><strong>Enter the name here:</strong></label>
+							<label for="name" class="col-12 col-sm-4 col-form-label" style="color:white"><strong>Description:</strong></label>
 							<div class=" col-12 col-sm-8"> 	
-								<input type="text" class="form-control" placeholder="Enter the name here..." th:field="${course.name}" required/><br/>
-							</div>						
-						</div>
-						<div class="form-group row">
-							<label for="name" class="col-12 col-sm-4 col-form-label" style="color:white"><strong>Enter the year here:</strong></label>
-							<div class=" col-12 col-sm-8"> 	
-								<input type="text" class="form-control" placeholder="Enter the name here..." th:field="${course.year}" required/><br/>
+0								<input type="text" class="form-control" placeholder="Enter the hobbies here..." th:field="${student.hobbies}" required/><br/>
 							</div>						
 						</div>
 						<div class="col text-center">
-							<button type="submit" class="btn btn-success ">Add course</button>
+							<button type="submit" class="btn btn-success ">Complete profile</button>
 						</div>
 					</form>
 				</div>

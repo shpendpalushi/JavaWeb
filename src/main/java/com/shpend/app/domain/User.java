@@ -52,6 +52,26 @@ public class User {
 	public Teacher getTeacher() {
 		return teacher;
 	}
+	
+	
+
+	public User(Long id, String username, String password, String name, Set<Authority> authorities, String authority,
+			Integer completedInfo, Teacher teacher, Student student, Admin admin, Date createdAt) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.name = name;
+		this.authorities = authorities;
+		this.authority = authority;
+		this.completedInfo = completedInfo;
+		this.teacher = teacher;
+		this.student = student;
+		this.admin = admin;
+		this.createdAt = createdAt;
+	}
+
+
 
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;

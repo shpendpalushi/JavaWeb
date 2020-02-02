@@ -4,7 +4,7 @@ window.addEventListener("load", start);
     var question = '<div class="form-group row">'+
                         '<label for="name" class="col-12 col-sm-4 col-form-label">Question:</label>'+
                         '<div class=" col-12 col-sm-8">'+
-                            '<input type="text"'+ ' class="form-control" placeholder="Enter question here..." th:field="${questions['+i+'].question"}  required/><br/>'+
+                            '<input type="text"'+ ' class="form-control" placeholder="Enter question here..." th:field="*{thiesis.questions['+i+'].question"}  required/><br/>'+
                         '</div>'+
                     '</div>';
 

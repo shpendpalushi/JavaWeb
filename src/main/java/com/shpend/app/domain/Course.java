@@ -26,6 +26,7 @@ public class Course  {
 	private Long id;
 	private String name;
 	private String department;
+	private Short year;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
 	@ManyToMany(mappedBy = "courses")
@@ -45,6 +46,23 @@ public class Course  {
 		this.id = id;
 		this.department = departament;
 	}
+	
+	
+	
+	public Course(Long id, String name, String department, Short year, Date createdAt, Set<Teacher> teachers,
+			Set<Thiesis> thiesis, Set<StudentCourseTaken> takenCourses) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.department = department;
+		this.year = year;
+		this.createdAt = createdAt;
+		this.teachers = teachers;
+		this.thiesis = thiesis;
+		this.takenCourses = takenCourses;
+	}
+
+
 	public Long getId() {
 		return id;
 	}
@@ -104,6 +122,16 @@ public class Course  {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+	public Short getYear() {
+		return year;
+	}
+
+
+	public void setYear(Short year) {
+		this.year = year;
 	}
 	
 }
