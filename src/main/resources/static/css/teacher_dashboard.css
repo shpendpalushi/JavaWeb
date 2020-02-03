@@ -149,7 +149,7 @@ color: #999;
 /* PROJECT INFO */
 
 .pcontent-l .info {
-  height:400px;
+  height:200px;
   position:relative;
   background:white;
   border-radius:5px;
@@ -195,7 +195,7 @@ color: #999;
 /* CONVERSATION */
 
 .pcontent-l .conversation {
-  height:200px;
+  height:400px;
   background:white;
   border-radius:5px;
   border-top: 10px solid #2890E6;
@@ -251,4 +251,16 @@ footer > p {
 .pcontent-l .conversation,.pcontent-l .info,.pcontent-r .history,.pcontent-r .team {
     margin:0 0 10px 0!important;
 }
+}
+
+td-subject{
+	font-weight: bolder;
+}
+
+.table tbody tr:nth-child(odd){
+    background: rgb(192, 185, 185);
+}
+a:hover{
+  background: #2890E6;
+  color: snow;
 }

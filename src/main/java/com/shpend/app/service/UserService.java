@@ -33,7 +33,7 @@ public class UserService {
 		return userRepo.save(user);
 	}
 	
-	public User get(long id)
+	public User get(Long id)
 	{
 		return userRepo.getOne(id);
 	}

@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html xmlns="htttp://thymeleaf.org">
+<html xmlns:th="htttp://thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
 </head>
 <body>
   <div class="wrapper">
-    <h1>Dashbordi i mesuesit <span></span></h1>
+    <h1>Teacher Dashboard<span></span></h1>
   <section class="psummary">
     <div class="psummary-left">
       <p><span class="entypo-attention"></span>Status</p>
@@ -22,47 +22,55 @@
 <div class="tabs" data-tabgroup="tab-group">
         <div class="active"><a href="#information">Kreu</a></div>
         <form action="" method="post">
-          <div><a th:href="@{'/teacher/'+${id}+'/add_course'}">Shto lende</a></div>
+          <div><a th:href="@{'/teacher/'+${id}+'/add_course'}">Add course</a></div>
         </form>
-        <div><a th:href="@{'/teacher/'+${id}+'/delete_course'}">Hiq lende</a></div>
-        <div><a th:href="@{'/teacher/'+${id}+'/add_thiesis'}">Shto teze</a></div>
-        <div><a href="#deletethiesis">Hiq teze</a></div>
+        <div><a th:href="@{'/teacher/'+${id}+'/delete_course'}">Remove Course</a></div>
+        <div><a th:href="@{'/teacher/'+${id}+'/add_thiesis'}">Add thiesis</a></div>
+        <div><a href="#deletethiesis">Remove Thiesis</a></div>
       </div>
       <section id="tab-group" class="tabgroup">
   <div id="information">
-    <h2>Heading 1</h2>
+    <h2 th:text="${user.name}"></h2>
     <p>
       
     </p>
   </div>
   <div id="addcourse">
-    <h2>Heading 2</h2>
+    <h2 th:text="${user.username}"></h2>
     <p></p>
   </div>
   <div id="deletecourse">
-    <h2>Heading 3</h2>
-    <p></p>
-  </div>
-  <div id="addthiesis">
-    <h2>Heading 4</h2>
-    <p></p>
-  </div>
-  <div id="deletethiesis">
-    <h2>Heading 5</h2>
+    <h2 th:text="${teacher.departament}"></h2>
     <p></p>
   </div>
 </section>
     </div>
     <div id="thiesis"class="conversation">
-      <h3>Tezat</h3>
+      <h3>Thiesis</h3>
+      <table th:unless="${my_thiesis == null}" class="table">
+      	<tbody>
+        <tr th:each="thiesis:${my_thiesis}">
+             <td  th:id="thiesis.id"><a th:href="@{'/teacher/'+${id}+'/find/'+ ${thiesis.id}}" th:text="|${thiesis.course.name}  ${thiesis.createdAt}|"></a></td>
+       </tr>
+       </tbody>		
+      </table>
     </div>
   </section>
   <aside class="pcontent-r">
     <div class="history">
-      <h3>Lendet</h3>
+      <h3>Subjects</h3>
+      <table class="table">
+      <tbody>
+          <tr th:each="c, iterstat: ${courses}">
+     			    <td>
+                 <a th:href="@{'/teacher/'+${id}+'/delete_course'}" th:text="${c}" th:id="|td${iterstat.index}|"></a>
+               </td>
+  			 </tr>
+  		</tbody>			
+        </table>
     </div>
     <div class="team">
-      <h3>Departamenti</h3>
+      <h3>Department</h3>
     </div>
   </aside>
 </div> <!-- END Wrapper -->

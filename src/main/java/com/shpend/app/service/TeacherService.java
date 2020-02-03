@@ -71,6 +71,10 @@ public class TeacherService  {
 		
 	}
 	
+	public Teacher save(Teacher t) {
+		return teacherRepo.save(t);
+	}
+	
 	
 	
 	

@@ -33,6 +33,8 @@ public class Thiesis {
 	private String courseName;
 	@Transient
 	private Long tmpCourse;
+	@ManyToOne(cascade=CascadeType.ALL)
+	private Teacher teacher;
 	
 	public Thiesis() {
 		
@@ -119,6 +121,14 @@ public class Thiesis {
 
 	public void setTmpCourse(Long tmpCourse) {
 		this.tmpCourse = tmpCourse;
+	}
+
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
 	}
 	
 

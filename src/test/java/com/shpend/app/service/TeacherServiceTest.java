@@ -28,14 +28,24 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.shpend.app.domain.Teacher;
 import com.shpend.app.domain.User;
 import com.shpend.app.repository.UserRepository;
 
+@SpringBootTest
+@RunWith(SpringJUnit4ClassRunner.class)
+@Transactional
+@EntityScan("com.shpend")
 public class TeacherServiceTest {
 
 	@Test	

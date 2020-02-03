@@ -34,8 +34,8 @@ public class Teacher extends Role {
 	private User user;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
-
-	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER , mappedBy="teacher")
+	private Set<Thiesis> thiesis= new HashSet<>();
 	
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(
@@ -102,6 +102,14 @@ public class Teacher extends Role {
 
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
+	}
+
+	public Set<Thiesis> getThiesis() {
+		return thiesis;
+	}
+
+	public void setThiesis(Set<Thiesis> thiesis) {
+		this.thiesis = thiesis;
 	}
 
 }

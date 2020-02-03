@@ -40,5 +40,13 @@ public class ThiesisService {
 		}
 		
 	}
+	
+	public Thiesis findById(Long id) {
+		Optional<Thiesis> findById = thiesisRepo.findById(id);
+		if(findById.isPresent()) 
+			return findById.get();
+		return null;
+	}
+
 
 }
