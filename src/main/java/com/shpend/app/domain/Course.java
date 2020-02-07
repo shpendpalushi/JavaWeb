@@ -31,7 +31,7 @@ public class Course  {
 	private Date createdAt;
 	@ManyToMany(mappedBy = "courses")
 	private Set<Teacher> teachers = new HashSet<>();
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="course")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="course")
 	private Set<Thiesis> thiesis = new HashSet<>();
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="course")
 	private Set<StudentCourseTaken> takenCourses;

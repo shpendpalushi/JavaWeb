@@ -69,7 +69,7 @@ public class TeacherDashboardController {
 		if(coursesForTeacher!=null){
 			List<String> courseNames = getCourseNames(coursesForTeacher);
 			System.out.println(courseNames);
-			map.put("courses", courseNames);
+			map.put("courses", coursesForTeacher);
 		}
 		
 		
@@ -84,6 +84,9 @@ public class TeacherDashboardController {
 		if(findByTeacher!=null) {
 			map.put("my_thiesis", findByTeacher);
 		}
+		
+		
+		
 		
 		return "teacher_dashboard";
 	}
@@ -100,10 +103,14 @@ public class TeacherDashboardController {
 	@PostMapping("/teacher/{userId}/add_thiesis")
 	public String addThiesis( @ModelAttribute(value="thiesis") Thiesis thiesis, @PathVariable Long userId)
 	{
+		
 		Teacher teacher = getTeacher(userId);
 		thiesis.setTeacher(teacher);
+		Course course = courseService.findById(thiesis.getTmpCourse());
+		System.out.println(course.getName());
+		thiesis.setCourse(course);
+		
 		teacher.getThiesis().add(thiesis);
-		System.out.println(teacher.getThiesis());
 	//	teacherService.save(teacher);
 		thiesisService.save(thiesis);
 		

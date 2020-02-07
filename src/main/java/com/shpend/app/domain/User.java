@@ -38,11 +38,11 @@ public class User {
 	@Transient
 	private String authority;
 	private Integer completedInfo;
-	@OneToOne(mappedBy="user")
+	@OneToOne(mappedBy="user", cascade=CascadeType.ALL)
 	private Teacher teacher;
-	@OneToOne(mappedBy="user")
+	@OneToOne(mappedBy="user", cascade=CascadeType.ALL)
 	private Student student;
-	@OneToOne(mappedBy="user")
+	@OneToOne(mappedBy="user", cascade=CascadeType.ALL)
 	private Admin admin;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;

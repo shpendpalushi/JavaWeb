@@ -56,6 +56,7 @@ public class FindThiesisController {
 	@PostMapping("/delete_thiesis/{userId}/{thiesisId}")
 	public String deleteThiesis(@PathVariable Long thiesisId, @PathVariable Long userId) {
 		Thiesis findById = thiesisService.findById(thiesisId);
+		System.out.println(thiesisId+ "*******************************************88888");
 		thiesisRepo.delete(findById);
 		return "redirect:/teacher/"+ userId;
 	}

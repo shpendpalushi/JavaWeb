@@ -30,7 +30,7 @@ public class Student extends Role {
 	private String niveli;
 	private String hobbies;
 	private String about;
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne()
 	@JoinColumn(name="user_id", referencedColumnName="id")
 	private User user;
 	@Temporal(TemporalType.TIMESTAMP)

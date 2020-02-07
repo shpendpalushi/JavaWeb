@@ -42,4 +42,10 @@ public class CourseService {
 		}
 		
 	}
+	public Course findById(Long id) {
+		Optional<Course> findById = courseRepo.findById(id);
+		if(findById.isPresent())
+			return findById.get();
+		return null;
+	}
 }

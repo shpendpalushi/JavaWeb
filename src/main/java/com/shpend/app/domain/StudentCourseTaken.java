@@ -22,14 +22,16 @@ public class StudentCourseTaken {
 	@JoinColumn(name="course_id", referencedColumnName="id")
 	private Course course;
 	
-	private Integer completed;
+	private Short grade;
+	private Short completed;
 	private Integer result;
+	
 	
 	public StudentCourseTaken() {
 		
 	}
 
-	public StudentCourseTaken(StudentCourseKey id, Student student, Course course, Integer completed, Integer result) {
+	public StudentCourseTaken(StudentCourseKey id, Student student, Course course, Short completed, Integer result) {
 		super();
 		this.id = id;
 		this.student = student;
@@ -38,7 +40,14 @@ public class StudentCourseTaken {
 		this.result = result;
 	}
 
+	
 
+	public StudentCourseTaken(StudentCourseKey id, Student student, Course course) {
+		super();
+		this.id = id;
+		this.student = student;
+		this.course = course;
+	}
 
 	public StudentCourseKey getId() {
 		return id;
@@ -64,11 +73,11 @@ public class StudentCourseTaken {
 		this.course = course;
 	}
 
-	public Integer getCompleted() {
+	public Short getCompleted() {
 		return completed;
 	}
 
-	public void setCompleted(Integer completed) {
+	public void setCompleted(Short completed) {
 		this.completed = completed;
 	}
 
@@ -79,6 +88,13 @@ public class StudentCourseTaken {
 	public void setResult(Integer result) {
 		this.result = result;
 	}
-	
+
+	public Short getGrade() {
+		return grade;
+	}
+
+	public void setGrade(Short grade) {
+		this.grade = grade;
+	}
 	
 }

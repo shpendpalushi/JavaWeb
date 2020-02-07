@@ -2,11 +2,16 @@ package com.shpend.app.web;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -23,7 +28,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.shpend.app.domain.Course;
+//import com.shpend.app.domain.Question;
 import com.shpend.app.domain.Student;
+import com.shpend.app.domain.StudentCourseTaken;
 import com.shpend.app.domain.Thiesis;
 import com.shpend.app.domain.User;
 import com.shpend.app.repository.CourseRepository;
@@ -42,7 +49,8 @@ public class StudentDashboardController {
 	StudentRepository studentRepo;
 	@Autowired
 	StudentService studentService;
-	private Course myCourse;
+	@PersistenceContext
+	EntityManager em;
 	
 	@GetMapping("/dashboard/{userId}")
 	  public String dashboard(@PathVariable Long userId,ModelMap map, HttpServletResponse response) throws IOException {
@@ -56,8 +64,21 @@ public class StudentDashboardController {
 			 map.put("student", student);
 			 try {
 				 System.out.println(student.getViti());
-				 List<Course> findByYear = courseRepo.findByYear(student.getViti());
-				 map.put("courses", findByYear);
+					TypedQuery<Course> q =em.createQuery("Select c from Course c where c.year <=:c_y",Course.class)
+							.setParameter("c_y", student.getViti());
+					List<Course> getAllCourses= q.getResultList();
+					TypedQuery<StudentCourseTaken> q2 =em.createQuery("Select s from StudentCourseTaken s where s.student.id=:s_id ",StudentCourseTaken.class)
+							.setParameter("s_id", user.getStudent().getId());
+					List<StudentCourseTaken> resultList = q2.getResultList();
+					List<Course> coursesFromSCT = getCoursesFromSCT(resultList);
+					map.put("takenCourses", coursesFromSCT);
+					List<Course> myCourses = new ArrayList<>();
+					for (Course c: getAllCourses) {
+						if(!coursesFromSCT.contains(c)) {
+							myCourses.add(c);
+						}
+					}
+				 map.put("courses", myCourses);
 				 
 			 }catch(NullPointerException e) {
 				 return "dashboard";
@@ -75,23 +96,7 @@ public class StudentDashboardController {
 		 
 	  }
 	
-	@GetMapping("/dashboard/{userId}/thiesis/{courseId}")
-	public String enterExam(ModelMap model, @PathVariable Long courseId, @PathVariable Long userId) {
-		Optional<Course> course = courseRepo.findById(courseId);
-		if(course.isPresent()) {
-			myCourse = course.get();
-			model.put("course", myCourse);
-			Iterator<Thiesis> thiesis = myCourse.getThiesis().iterator();
-			model.put("thiesis", thiesis.next());
-		}
-		return "perform_exam";
-	}
 	
-	@PostMapping("/dashboard/{userId}/thiesis/{thiesisId}")
-	public String submitAnswers(@PathVariable Long userId) {
-		
-		return "redirect:dashboard/"+ userId;
-	}
 	
 	@GetMapping("/dashboard/{userId}/update_profile")
 	public String update_profile(@PathVariable long userId,ModelMap map, HttpServletResponse response) throws IOException {
@@ -122,5 +127,19 @@ public class StudentDashboardController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 	    binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("MM/dd/yyyy"), true));
+	}
+	
+	private List<String> getQuestionsThiesis(Thiesis thiesis){
+		String questions = thiesis.getQuestions();
+		String[] arrayQuestions = questions.split("\n");
+		return Arrays.asList(arrayQuestions);
+	}
+	
+	private List<Course> getCoursesFromSCT(List<StudentCourseTaken> t){
+		List<Course> courses = new ArrayList<>();
+		for (StudentCourseTaken studentCourseTaken : t) {
+			courses.add(studentCourseTaken.getCourse());
+		}
+		return courses;
 	}
 }

@@ -29,12 +29,12 @@ public class Teacher extends Role {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String departament;
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne()
 	@JoinColumn(name="user_id", referencedColumnName="id")
 	private User user;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER , mappedBy="teacher")
+	@OneToMany(fetch=FetchType.EAGER , mappedBy="teacher")
 	private Set<Thiesis> thiesis= new HashSet<>();
 	
 	@ManyToMany(cascade=CascadeType.ALL)

@@ -76,6 +76,16 @@ public class TeacherService  {
 	}
 	
 	
+	public Teacher findById(Long id) {
+		Optional<Teacher> findTeacher = teacherRepo.findById(id);
+		if(findTeacher.isPresent()) {
+			return findTeacher.get();
+		}
+		return null;
+		
+	}
+	
+	
 	
 	
 }

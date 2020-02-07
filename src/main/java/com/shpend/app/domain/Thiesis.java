@@ -12,11 +12,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class Thiesis {
@@ -24,16 +27,26 @@ public class Thiesis {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	
+	
+	@Length(max=10000)
 	String questions;
 	@ManyToOne(cascade=CascadeType.ALL)
 	private Course course;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
+	private Short active;
 	@Transient
 	private String courseName;
+//	@OneToMany(fetch=FetchType.EAGER , mappedBy="thiesis")
+//	private List<Question> question = new ArrayList<>();
+	@OneToMany
+	private List<Answer> answer = new ArrayList<>();
+	
 	@Transient
 	private Long tmpCourse;
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.ALL})
+	 @JoinColumn(name="teacher_id")
 	private Teacher teacher;
 	
 	public Thiesis() {
@@ -130,6 +143,30 @@ public class Thiesis {
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
 	}
+
+	public Short getActive() {
+		return active;
+	}
+
+	public void setActive(Short active) {
+		this.active = active;
+	}
+
+	public List<Answer> getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(List<Answer> answer) {
+		this.answer = answer;
+	}
+
+//	public List<Question> getQuestion() {
+//		return question;
+//	}
+//
+//	public void setQuestion(List<Question> question) {
+//		this.question = question;
+//	}
 	
 
 }
