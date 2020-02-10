@@ -40,8 +40,11 @@ public class Thiesis {
 	private String courseName;
 //	@OneToMany(fetch=FetchType.EAGER , mappedBy="thiesis")
 //	private List<Question> question = new ArrayList<>();
-	@OneToMany
-	private List<Answer> answer = new ArrayList<>();
+	@OneToMany(fetch=FetchType.EAGER , mappedBy="thiesis")
+	private List<AnswerThiesis> answerThiesis = new ArrayList<>();
+	
+	@Transient
+	private List<Answer> answer = new ArrayList<>(); 
 	
 	@Transient
 	private Long tmpCourse;
@@ -150,6 +153,14 @@ public class Thiesis {
 
 	public void setActive(Short active) {
 		this.active = active;
+	}
+
+	public List<AnswerThiesis> getAnswerThiesis() {
+		return answerThiesis;
+	}
+
+	public void setAnswerThiesis(List<AnswerThiesis> answer) {
+		this.answerThiesis = answer;
 	}
 
 	public List<Answer> getAnswer() {

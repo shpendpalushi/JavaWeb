@@ -29,7 +29,7 @@ public class Teacher extends Role {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String departament;
-	@OneToOne()
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="user_id", referencedColumnName="id")
 	private User user;
 	@Temporal(TemporalType.TIMESTAMP)

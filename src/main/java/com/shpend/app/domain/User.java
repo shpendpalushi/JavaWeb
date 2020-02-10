@@ -46,7 +46,7 @@ public class User {
 	private Admin admin;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
-	
+	private Short softDeleted = (short)0;
 	
 	
 	public Teacher getTeacher() {
@@ -169,5 +169,19 @@ public class User {
 	public void setAdmin(Admin admin) {
 		this.admin = admin;
 	}
+
+
+
+	public Short getSoftDeleted() {
+		return softDeleted;
+	}
+
+
+
+	public void setSoftDeleted(Short softDeleted) {
+		this.softDeleted = softDeleted;
+	}
+
+
 
 }

@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.shpend.app.domain.AnswerThiesis;
 import com.shpend.app.domain.Course;
 //import com.shpend.app.domain.Question;
 import com.shpend.app.domain.Student;
@@ -37,6 +39,7 @@ import com.shpend.app.repository.CourseRepository;
 import com.shpend.app.repository.StudentRepository;
 import com.shpend.app.repository.UserRepository;
 import com.shpend.app.service.StudentService;
+import com.shpend.app.service.UserService;
 
 @Controller
 public class StudentDashboardController {
@@ -51,13 +54,14 @@ public class StudentDashboardController {
 	StudentService studentService;
 	@PersistenceContext
 	EntityManager em;
+	@Autowired
+	UserService userService;
+	Set<StudentCourseTaken> takenCourses = null;
 	
 	@GetMapping("/dashboard/{userId}")
 	  public String dashboard(@PathVariable Long userId,ModelMap map, HttpServletResponse response) throws IOException {
-		 Optional<User> userOptional = 	userRepo.findById(userId);
-		 if(userOptional.isPresent())
-		 {
-			 User user = userOptional.get();
+		 
+			 User user = userService.get(userId);
 			 map.put("user", user);
 			 map.put("id", user.getId());
 			 Student student = user.getStudent();
@@ -87,12 +91,15 @@ public class StudentDashboardController {
 			 
 			 map.put("student",student);
 			 
-			 return "dashboard";
+			 TypedQuery<AnswerThiesis> qnew = em.createQuery("Select a from AnswerThiesis a where a.student.id=:s_id and passive=1", AnswerThiesis.class)
+						.setParameter("s_id", student.getId());
+			 for (AnswerThiesis a : qnew.getResultList()) {
+				System.out.println(a.getGrade());
+			}
+			 map.put("taken_exams", qnew.getResultList());
+				
 			 
-		 }else {
-		      response.sendError(HttpStatus.NOT_FOUND.value(), "Product with id " + userId + " was not found");
-		      return "error";
-		    }
+			 return "dashboard";
 		 
 	  }
 	
@@ -109,7 +116,10 @@ public class StudentDashboardController {
 			 map.put("id", user.getId());
 			 map.put("hobbies", new String());
 			 map.put("about", new String());
-			 map.put("student", user.getStudent());
+			 Student student = user.getStudent();
+			 map.put("student", student);
+			 takenCourses = student.getTakenCourses();
+			 
 			return "update_profile";
 		 }
 		 
@@ -119,7 +129,9 @@ public class StudentDashboardController {
 	@PostMapping("/dashboard/{userId}/update_profile")
 	@Modifying
 	public String update_profile(@PathVariable Long userId, Student student) throws IOException {
+		student.setTakenCourses(takenCourses);
 		System.out.println(student.getAbout());
+		System.out.println(student.getId()+"<<<<<<<<<<<>>>>>>");
 		studentRepo.save(student);
 		return "redirect:";
 		

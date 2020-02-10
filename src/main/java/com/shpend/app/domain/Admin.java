@@ -18,7 +18,7 @@ public class Admin extends Role{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String position;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="user_id", referencedColumnName="id")
 	private User user;
 	@Temporal(TemporalType.TIMESTAMP)

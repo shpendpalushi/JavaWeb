@@ -40,6 +40,7 @@ public class TeacherService  {
 			 	user.setCompletedInfo(1);
 			 	teacher.setDepartament(teacher.getDepartament());
 				teacher.setUser(user);
+				user.setTeacher(teacher);
 				Date date = new Date();
 				teacher.setCreatedAt(new Timestamp(date.getTime()));
 				return teacherRepo.save(teacher);

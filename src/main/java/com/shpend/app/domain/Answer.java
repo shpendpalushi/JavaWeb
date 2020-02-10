@@ -6,31 +6,28 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Answer {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String answer;
-	@ManyToOne
-	private Student student;
-//	@ManyToOne(cascade=CascadeType.ALL)
-//	private Question question;
-	@ManyToOne()
-	private Thiesis thiesis;
-	private Short passive;
+	@ManyToOne(cascade=CascadeType.ALL)
+	private AnswerThiesis answerThiesis;
+
 	public Answer() {
 		
 	}
 	
 		
-	public Answer(Long id, String answer, Student student/**, Question question**/) {
+	public Answer(Long id, String answer) {
 		super();
 		this.id = id;
 		this.answer = answer;
-		this.student = student;
-//		this.question = question;
+		
 	}
 
 
@@ -40,12 +37,18 @@ public class Answer {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-	public Student getStudent() {
-		return student;
+
+
+	public AnswerThiesis getAnswerThiesis() {
+		return answerThiesis;
 	}
-	public void setStudent(Student student) {
-		this.student = student;
+
+
+	public void setAnswerThiesis(AnswerThiesis answerThiesis) {
+		this.answerThiesis = answerThiesis;
 	}
+
+	
 //	public Question getQuestion() {
 //		return question;
 //	}
@@ -54,23 +57,5 @@ public class Answer {
 //	}
 
 
-	public Thiesis getThiesis() {
-		return thiesis;
-	}
-
-
-	public void setThiesis(Thiesis thiesis) {
-		this.thiesis = thiesis;
-	}
-
-
-	public Short getPassive() {
-		return passive;
-	}
-
-
-	public void setPassive(Short passive) {
-		this.passive = passive;
-	}
 
 }

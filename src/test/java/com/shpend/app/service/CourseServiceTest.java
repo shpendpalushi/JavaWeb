@@ -1,7 +1,8 @@
 package com.shpend.app.service;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 
@@ -12,7 +13,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
+
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.shpend.app.domain.Course;
@@ -38,7 +39,7 @@ public class CourseServiceTest {
 	public void test() {
 		
 		Course course = new Course();
-		long id= 1; 
+		long id= 3; 
 		
 		course.setId(id);
 		course.setName("OPP");

@@ -1,0 +1,9 @@
+.md1_table tr{
+	height: 205px;
+    width:500px;
+}
+
+.td_q_a{
+    overflow-y: scroll;
+}
+

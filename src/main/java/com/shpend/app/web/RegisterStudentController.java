@@ -31,10 +31,9 @@ public class RegisterStudentController {
 	@Autowired
 	StudentService studentService;
 	
-	Long myId = null;
+	
 	@GetMapping("/register_student/{userId}")
 	  public String dashboard(@PathVariable long userId,ModelMap map, HttpServletResponse response) throws IOException {
-		myId = userId;
 		Optional<User> userOptional = 	userRepo.findById(userId);
 		 if(userOptional.isPresent())
 		 {
@@ -47,9 +46,9 @@ public class RegisterStudentController {
 		 
 	  }
 	@PostMapping("/register_student/{userId}")
-	  public String register(Student student) {
+	  public String register(Student student, @PathVariable Long userId) {
 		try {
-			studentService.save(student, myId);
+			studentService.save(student, userId);
 		}catch(NullPointerException e) {
 			System.out.println("Null pointer here");
 			e.printStackTrace();

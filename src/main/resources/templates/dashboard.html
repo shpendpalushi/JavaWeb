@@ -66,26 +66,12 @@
 								<div class="alert alert-info alert-dismissable">
 									<a class="panel-close close" data-dismiss="alert">�</a> These are  <strong>.important</strong>. Take time to have a look. </div>
 								<table class="table table-hover table-striped">
-									<tbody>
-										<tr>
+									<tbody th:unless="${ath!= null}">
+										<tr th:each="tha: ${taken_exams}">
 											<td>
-												<span class="float-right font-weight-bold">3 hrs ago</span> Here is your a link to the latest summary report from the.. </td>
-										</tr>
-										<tr>
-											<td>
-												<span class="float-right font-weight-bold">Yesterday</span> There has been a request on your account since that was.. </td>
-										</tr>
-										<tr>
-											<td>
-												<span class="float-right font-weight-bold">9/10</span> Porttitor vitae ultrices quis, dapibus id dolor. Morbi venenatis lacinia rhoncus. </td>
-										</tr>
-										<tr>
-											<td>
-												<span class="float-right font-weight-bold">9/4</span> Vestibulum tincidunt ullamcorper eros eget luctus. </td>
-										</tr>
-										<tr>
-											<td>
-												<span class="float-right font-weight-bold">9/4</span> Maxamillion ais the fix for tibulum tincidunt ullamcorper eros. </td>
+												<span class="float-rix	ght font-weight-bold" th:text="${tha.thiesis.course.name}" style="padding-right: 2px;"></span> taken with grade <span th:text="${tha.grade}" class="float-rix	ght font-weight-bold"></span>
+												with the result <span th:text="${tha.result}" class="float-rix	ght font-weight-bold"></span>
+											</td>
 										</tr>
 									</tbody>
 								</table>

@@ -1,4 +1,4 @@
-package com.shpend.app.web;
+package com.shpend.app.domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,18 +14,15 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.shpend.app.domain.AnswerThiesis;
 import com.shpend.app.repository.TeacherRepository;
 import com.shpend.app.service.TeacherService;
 import com.shpend.app.service.ThiesisService;
-
 
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @EntityScan("com.shpend")
-class ControlExamControllerTest {
-
+class StudentTest {
 	@PersistenceContext
 	EntityManager em;
 	@Autowired
@@ -34,16 +31,17 @@ class ControlExamControllerTest {
 	TeacherService ts;
 	@Autowired
 	ThiesisService thiesisService;
-	
+
 	@Test
 	void test() {
-		
-		TypedQuery<AnswerThiesis> q = em.createQuery("Select at from AnswerThiesis at where at.thiesis.course.id=:course_id", AnswerThiesis.class)
-				.setParameter("course_id", (long)3);
+		Long id = 6l;
+		TypedQuery<AnswerThiesis> q = em.createQuery("Select a from AnswerThiesis a where a.student.id=:s_id and passive=1", AnswerThiesis.class)
+				.setParameter("s_id", id);
 		for (AnswerThiesis a : q.getResultList()) {
-			System.out.println(a.getStudent().getUser().getName());
+			System.out.println(a.getThiesis().getCourse().getName()+"got the result" + a.getGrade() + " with the result " + a.getResult());
 		}
 		assertNotNull(q.getResultList());
+		
 	}
 
 }

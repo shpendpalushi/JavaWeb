@@ -33,10 +33,8 @@ public class RegisterAdminController implements RegisterRole {
 	UserService userService;
 	@Autowired
 	AdminService adminService;
-	Long myId = null;
 	@GetMapping("/register_admin/{userId}")
 	  public String dashboard(@PathVariable long userId,ModelMap map, HttpServletResponse response) throws IOException {
-		myId = userId;
 		Optional<User> userOptional = 	userRepo.findById(userId);
 		 if(userOptional.isPresent())
 		 {
@@ -49,9 +47,9 @@ public class RegisterAdminController implements RegisterRole {
 		 
 	  }
 	@PostMapping("/register_admin/{userId}")
-	  public String register (Admin admin) {
+	  public String register (Admin admin, @PathVariable Long userId) {
 		try {
-			adminService.save(admin, myId);
+			adminService.save(admin, userId);
 		}catch(NullPointerException e) {
 			System.out.println("Null pointer here");
 			e.printStackTrace();

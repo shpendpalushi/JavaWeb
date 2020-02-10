@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.shpend.app.domain.Answer;
+import com.shpend.app.domain.AnswerThiesis;
 import com.shpend.app.domain.Course;
 import com.shpend.app.domain.Student;
 import com.shpend.app.domain.StudentCourseKey;
@@ -25,6 +26,7 @@ import com.shpend.app.domain.StudentCourseTaken;
 import com.shpend.app.domain.Thiesis;
 import com.shpend.app.domain.User;
 import com.shpend.app.repository.AnswerRepository;
+import com.shpend.app.repository.AnswerThiesisRepository;
 import com.shpend.app.repository.CourseRepository;
 import com.shpend.app.repository.StudentCourseTakenRepository;
 import com.shpend.app.repository.StudentRepository;
@@ -49,7 +51,9 @@ public class PerformExamController {
 	@Autowired
 	AnswerRepository answerRepo;
 	@Autowired
-	UserService userService; 
+	UserService userService;
+	@Autowired
+	AnswerThiesisRepository answerThiesisRepo;
 	@PersistenceContext
 	EntityManager em;
 	@Autowired
@@ -65,18 +69,20 @@ public class PerformExamController {
 			
 			Thiesis thiesis = resultList.get(0);
 			
-			List<String> questionsThiesis = getQuestionsThiesis(thiesis);
+			List<String> questionsThiesis = Generalized.getQuestionsFromThiesis(thiesis);// getQuestionsThiesis(thiesis);
 			System.out.println(questionsThiesis.size());
 			ArrayList<Answer> answers = new ArrayList<>();
+			AnswerThiesis ath = new AnswerThiesis();
 			for (String s : questionsThiesis) {
 				answers.add(new Answer());
 			}
+			ath.setAnswers(answers);
+			
 			model.put("questions", questionsThiesis);
-			thiesis.setAnswer(answers);
 			model.put("thiesis", thiesis);
 			//TypedQuery<Question> ques = em.createQuery("Select q from Question q where q.thiesis.id=:thiesisId", Question.class)
 				//	.setParameter("thiesisId", thiesis.getId());
-			
+			model.put("answerThiesis", ath);
 			
 			
 			
@@ -86,20 +92,22 @@ public class PerformExamController {
 	
 	@PostMapping("/dashboard/{userId}/thiesis/{thiesisId}")
 	public String submitAnswers(@PathVariable Long userId, @PathVariable Long thiesisId,
-			@ModelAttribute(value="thiesis")Thiesis thiesis ) {
+			@ModelAttribute(value="thiesis")Thiesis thiesis, @ModelAttribute(value="answerThiesis")AnswerThiesis ath) {
 			Student studentByUser = getStudentByUser(userId);
-			for (Answer a : thiesis.getAnswer()) {
-				a.setThiesis(thiesis);
-				a.setStudent(studentByUser);
-				a.setPassive((short)0);
-				answerRepo.save(a);
+			List<Answer> answers = getAnswers(ath);
+			
+			AnswerThiesis answerThiesis = new AnswerThiesis();
+			answerThiesis.setAnswers(answers);
+			for (Answer answer : answers) {
+				answer.setAnswerThiesis(answerThiesis);
+				answerRepo.save(answer);
 			}
-			System.out.println(thiesis.getTmpCourse());
+			answerThiesis.setPassive((short)0);
+			answerThiesis.setStudent(studentByUser);
+			answerThiesis.setThiesis(thiesis);
+			thiesis.getAnswerThiesis().add(answerThiesis);
 			thiesisService.save(thiesis);
-			for (Answer a : thiesis.getAnswer()) {
-				
-				System.out.println(a.getAnswer());
-			}
+			answerThiesisRepo.save(answerThiesis);
 			Course course = thiesis.getCourse();
 			StudentCourseKey k = new StudentCourseKey(studentByUser.getId(), course.getId());
 			StudentCourseTaken st = new StudentCourseTaken(k, studentByUser, course);
@@ -109,19 +117,20 @@ public class PerformExamController {
 		return "redirect:/dashboard/"+ userId;
 	}
 	
-	private List<String> getQuestionsThiesis(Thiesis thiesis){
-		String questions = thiesis.getQuestions();
-		String[] arrayQuestions = questions.split("\n");
-		 List<String> asList = Arrays.asList(arrayQuestions);
-		for (String string : asList) {
-			System.out.println(string);
-			
-		}
-		return asList;
-	}
+	@GetMapping("/teacher/{user}/view_course_exam/{courseId}/view_answers")
+	
+	
 	
 	private Student getStudentByUser(Long userId) {
 		return userService.get(userId).getStudent();
+	}
+	
+	private List<Answer> getAnswers(AnswerThiesis ath){
+		List<Answer> answers = new ArrayList<>();
+		for(Answer a: ath.getAnswers()) {
+			answers.add(a);
+		}
+		return answers;
 	}
 
 }

@@ -31,12 +31,10 @@ public class RegisterTeacherController implements RegisterRole{
 	@Autowired
 	TeacherService teacherService;
 	
-	Long myId = null;
 	
 	@Override
 	@GetMapping("/register_teacher/{userId}")
 	  public String dashboard(@PathVariable long userId,ModelMap map, HttpServletResponse response) throws IOException {
-		myId = userId;
 		Optional<User> userOptional = 	userRepo.findById(userId);
 		 if(userOptional.isPresent())
 		 {
@@ -49,9 +47,9 @@ public class RegisterTeacherController implements RegisterRole{
 		 
 	  }
 	@PostMapping("/register_teacher/{userId}")
-	  public String register (Teacher teacher) {
+	  public String register (Teacher teacher, @PathVariable Long userId) {
 		try {
-			teacherService.save(teacher, myId);
+			teacherService.save(teacher, userId);
 		}catch(NullPointerException e) {
 			System.out.println("Null pointer here");
 			e.printStackTrace();

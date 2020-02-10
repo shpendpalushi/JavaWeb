@@ -32,6 +32,7 @@ public class AdminService {
 			 	User user = userOptional.get();
 			 	user.setCompletedInfo(1);
 				admin.setUser(user);
+				user.setAdmin(admin);
 				Date date = new Date();
 				admin.setCreatedAt(new Timestamp(date.getTime()));
 				return adminRepo.save(admin);

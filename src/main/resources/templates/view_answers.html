@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <link href="/css/teacher_dashboard.css" rel="stylesheet" type="text/css" media="all" th:href="@{/css/teacher_dashboard.css}"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="d-flex flex-row bd-highlight justify-content-center">
+        <div id="thiesis"class="conversation" style=" padding-right: 50px; align-items: center; text-align: center;">
+            <h3>Answers to be controlled</h3>
+            <table class="table">
+                <tbody>
+                  <tr th:each="answers:${all_answers}">
+                       <td  th:id="thiesis.id"><a th:href="@{'/teacher/'+${id}+'/view_course_exam/'+ ${thiesis.course.id}+'/view_answers/'+${thiesis.id} +'/control_exam/'+${answers.id}}" class="a" th:text="|${answers.student.user.name} ---- ${answers.thiesis.course.name}|"></a></td>
+                 </tr>
+             </tbody>		
+          </table>
+        </div>
+    <div id="thiesis"class="conversation" style="border-left: dashed 1px rgb(23, 133, 160); padding-left: 50px;align-items: center; text-align: center;">
+        <h3>Already Controlled</h3>
+        <table class="table table-hover table-striped">
+            <tbody>
+              <tr th:each="answers:${controlled_answers}">
+                   <td  th:id="thiesis.id"><a th:href="@{'/teacher/'+${id}+'/view_course_exam/'+ ${thiesis.course.id}+'/view_answers/'+${thiesis.id} +'/view_exam/'+${answers.id}}" class="a" th:text="|${answers.student.user.name} ---- ${answers.thiesis.course.name}|"></a></td>
+             </tr>
+         </tbody>		
+      </table>
+    </div>
+   </div>
+</body>
+</html>
+
+<!-- "|${answers.student.user.name}  ${answers.thiesis.course}|" -->

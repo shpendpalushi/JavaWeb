@@ -31,6 +31,7 @@ public class StudentService  {
 			setStudent(student);
 			user.setCompletedInfo(1);
 			student.setUser(user);
+			user.setStudent(student);
 			Date date = new Date();
 			student.setCreatedAt(new Timestamp(date.getTime()));
 			return studentRepo.save(student);

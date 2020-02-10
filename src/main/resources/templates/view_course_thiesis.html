@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html xmlns:th="htttp://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="/css/teacher_dashboard.css" rel="stylesheet" type="text/css" media="all" th:href="@{/css/teacher_dashboard.css}"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Document</title>
+</head>
+<body>
+    <div id="thiesis"class="conversation">
+      <h3>Thiesis</h3>
+      <table class="table table-hover table-striped">
+      	<tbody>
+        <tr th:each="thiesis:${all_thiesis}">
+             <td  th:id="thiesis.id"><a th:href="@{'/teacher/'+${id}+'/view_course_exam/'+ ${thiesis.course.id}+'/view_answers/'+${thiesis.id}}" class="a" th:text="|${thiesis.course.name}  ${thiesis.createdAt}|"></a></td>
+       </tr>
+       </tbody>		
+    </table>
+    </div>
+</body>
+</html>

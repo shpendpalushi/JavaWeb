@@ -15,35 +15,40 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.shpend.app.domain.AnswerThiesis;
+import com.shpend.app.domain.Thiesis;
 import com.shpend.app.repository.TeacherRepository;
 import com.shpend.app.service.TeacherService;
-import com.shpend.app.service.ThiesisService;
+import com.shpend.app.service.UserService;
 
 
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @EntityScan("com.shpend")
-class ControlExamControllerTest {
-
+class ViewCourseExamControllerTest {
 	@PersistenceContext
 	EntityManager em;
 	@Autowired
 	TeacherRepository tr;
 	@Autowired
-	TeacherService ts;
-	@Autowired
-	ThiesisService thiesisService;
-	
+	UserService ss;
 	@Test
 	void test() {
-		
-		TypedQuery<AnswerThiesis> q = em.createQuery("Select at from AnswerThiesis at where at.thiesis.course.id=:course_id", AnswerThiesis.class)
-				.setParameter("course_id", (long)3);
-		for (AnswerThiesis a : q.getResultList()) {
-			System.out.println(a.getStudent().getUser().getName());
-		}
+		Long courseId = 4l;
+		TypedQuery<Thiesis> q = em.createQuery("Select t from Thiesis t where t.course.id=:courseId", Thiesis.class)
+				.setParameter("courseId", courseId);
+//		for (Thiesis t : q.getResultList()) {
+//			System.out.println(t.getCreatedAt());
+//		}
 		assertNotNull(q.getResultList());
 	}
-
+	
+	
+	@Test
+	void test2() {
+		Long id = ss.get((long)1).getTeacher().getId();
+		TypedQuery<AnswerThiesis> q = em.createQuery("Select at from AnswerThiesis at where at.thiesis.course.id=:course_id and at.thiesis.teacher.id=:t_id", AnswerThiesis.class)
+				.setParameter("course_id", (long)3).setParameter("t_id", id);
+		assertNotNull(q.getResultList());
+	}
 }
